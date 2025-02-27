@@ -15,17 +15,17 @@ export default class ImageQuery {
         page: 1,
         safesearch: true,
         image_type: `photo`,
-        per_page: 9,
+        per_page: 40,
       },
     };
     this.#url = `https://pixabay.com/api/`;
   }
-  sendQuery(searchInput, thanCall, cathCall) {
+  async sendQuery(searchInput) {
     this.#options.params.q = searchInput;
-
-    axios(this.#url, this.#options)
-      .then(items => thanCall(items))
-      .catch(error => cathCall(error));
+    const response = await axios(this.#url, this.#options);
+    return response;
+    // .then(items => thanCall(items))
+    // .catch(error => cathCall(error));
   }
   clearSearchQuery() {
     this.#options.params.q = ``;
