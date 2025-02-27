@@ -3,7 +3,7 @@ export default class RenderGallery {
     this.gallery = document.querySelector(`.gallery`);
   }
   changeResolution(img) {
-    return img.slice(0, -7) + `180.jpg`;
+    return img.replace('_640', `_180`);
   }
   showFirstPage(response) {
     this.#renderItems(response);
