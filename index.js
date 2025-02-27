@@ -1,33 +1,36 @@
-var m=e=>{throw TypeError(e)};var y=(e,t,s)=>t.has(e)||m("Cannot "+s);var a=(e,t,s)=>(y(e,t,"read from private field"),s?s.call(e):t.get(e)),h=(e,t,s)=>t.has(e)?m("Cannot add the same private member more than once"):t instanceof WeakSet?t.add(e):t.set(e,s),f=(e,t,s,o)=>(y(e,t,"write to private field"),o?o.call(e,s):t.set(e,s),s);import{a as L,S as b,i as w}from"./assets/vendor-NgjAvfGz.js";(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const r of document.querySelectorAll('link[rel="modulepreload"]'))o(r);new MutationObserver(r=>{for(const i of r)if(i.type==="childList")for(const u of i.addedNodes)u.tagName==="LINK"&&u.rel==="modulepreload"&&o(u)}).observe(document,{childList:!0,subtree:!0});function s(r){const i={};return r.integrity&&(i.integrity=r.integrity),r.referrerPolicy&&(i.referrerPolicy=r.referrerPolicy),r.crossOrigin==="use-credentials"?i.credentials="include":r.crossOrigin==="anonymous"?i.credentials="omit":i.credentials="same-origin",i}function o(r){if(r.ep)return;r.ep=!0;const i=s(r);fetch(r.href,i)}})();class S{constructor(){this.gallery=document.querySelector(".gallery")}changeResolution(t){return t.slice(0,-7)+"180.jpg"}renderItems(t){const s=t.data.hits.map(o=>`<li>
+var g=t=>{throw TypeError(t)};var f=(t,e,r)=>e.has(t)||g("Cannot "+r);var l=(t,e,r)=>(f(t,e,"read from private field"),r?r.call(t):e.get(t)),u=(t,e,r)=>e.has(t)?g("Cannot add the same private member more than once"):e instanceof WeakSet?e.add(t):e.set(t,r),m=(t,e,r,n)=>(f(t,e,"write to private field"),n?n.call(t,r):e.set(t,r),r),v=(t,e,r)=>(f(t,e,"access private method"),r);import{a as S,S as x,i as q}from"./assets/vendor-NgjAvfGz.js";(function(){const e=document.createElement("link").relList;if(e&&e.supports&&e.supports("modulepreload"))return;for(const s of document.querySelectorAll('link[rel="modulepreload"]'))n(s);new MutationObserver(s=>{for(const a of s)if(a.type==="childList")for(const i of a.addedNodes)i.tagName==="LINK"&&i.rel==="modulepreload"&&n(i)}).observe(document,{childList:!0,subtree:!0});function r(s){const a={};return s.integrity&&(a.integrity=s.integrity),s.referrerPolicy&&(a.referrerPolicy=s.referrerPolicy),s.crossOrigin==="use-credentials"?a.credentials="include":s.crossOrigin==="anonymous"?a.credentials="omit":a.credentials="same-origin",a}function n(s){if(s.ep)return;s.ep=!0;const a=r(s);fetch(s.href,a)}})();var p,b;class B{constructor(){u(this,p);this.gallery=document.querySelector(".gallery")}changeResolution(e){return e.slice(0,-7)+"180.jpg"}showFirstPage(e){this.clearGalery(),v(this,p,b).call(this,e)}clearGalery(){this.gallery.innerHTML="",this.removeBtn()}createBtn(e,r){const n=document.createElement("div");n.classList.add("pages-btn-wrapper"),n.innerHTML=`
+      <buton class="search-btn" id="next-page" type="button">Load more</buton>
+      <! Add only for demo work on last page-->
+      <buton class="search-btn" id="last-page" type="button">Load last page</buton>`;const s=n.querySelector("#next-page"),a=n.querySelector("#last-page");s.addEventListener("click",i=>e(i)),a.addEventListener("click",i=>callback2(i)),this.gallery.insertAdjacentElement("afterend",s)}removeBtn(){const e=document.querySelectorAll(".pages-btn-wrapper");e&&e.forEach(r=>r.remove())}loader(){const e='<div class="content-header">Loading images, please wait... <br/><span class="loader"></span></div>';this.clearGalery(),this.gallery.insertAdjacentHTML("beforeend",e)}}p=new WeakSet,b=function(e){const r=e.data.hits.map(n=>`<li>
         <div clas="img-box">
-          <a class="gallery-link" href="${o.largeImageURL}">
+          <a class="gallery-link" href="${n.largeImageURL}">
             <img
               class="gallery-image"
-              src="${this.changeResolution(o.webformatURL)}"
-              data-source="${o.largeImageURL}"
-              alt="${o.tags}"
+              src="${this.changeResolution(n.webformatURL)}"
+              data-source="${n.largeImageURL}"
+              alt="${n.tags}"
             />
           </a>
         </div>
         <ul class="content-box">
           <li class="content-item">
             <div class="content-header">Likes</div>
-            <div class="content">${o.likes}</div>
+            <div class="content">${n.likes}</div>
           </li>
           <li class="content-item">
            <div class="content-header">Views</div>
-            <div class="content">${o.views}</div>
+            <div class="content">${n.views}</div>
           </li>
           <li class="content-item">
             <div class="content-header">Comments</div>
-            <div class="content">${o.comments}</div>
+            <div class="content">${n.comments}</div>
           </li>
           <li class="content-item">
             <div class="content-header">Downloads</div>
-            <div class="content">${o.downloads}</div>
+            <div class="content">${n.downloads}</div>
           </li>
         </ul>
       </li>
-      `).join("");this.clearGalery(),this.gallery.insertAdjacentHTML("beforeend",s)}clearGalery(){this.gallery.innerHTML=""}loader(){const t='<div class="content-header">Loading images, please wait... <br/><span class="loader"></span></div>';this.clearGalery(),this.gallery.insertAdjacentHTML("beforeend",t)}}var n,l;class x{constructor(){h(this,n);h(this,l);f(this,n,{params:{_method:"get",key:"49061032-8122651df51dcd062279bc436",q:"",orientation:"horizontal",page:1,safesearch:!0,image_type:"photo",per_page:9}}),f(this,l,"https://pixabay.com/api/")}sendQuery(t,s,o){a(this,n).params.q=t,L(a(this,l),a(this,n)).then(r=>s(r)).catch(r=>o(r))}clearSearchQuery(){a(this,n).params.q="",a(this,n).params.page=1}}n=new WeakMap,l=new WeakMap;const q={captionDelay:250,captionsData:"alt"};function I(){P.addEventListener("submit",e=>$(e))}function $(e){if(e.preventDefault(),O()){d.loader();const t=setTimeout(()=>{g.sendQuery(v,R,p),clearInterval(t)},2e3)}else p("Sorry, input not valid"),T()}function O(){return c.value&&c.value.length<=100?(v=c.value,!0):!1}function R(e){e.data.hits.length>0?(d.renderItems(e),G()):(p(`Sorry, there are no images matching your search query. Please try again!
-  `),d.clearGalery())}function G(){M.refresh()}function T(){d.clearGalery(),c.value="",g.clearSearchQuery()}function p(e){e=e.message?e.message:e;let t={message:e,icon:"material-icons-outlined",iconColor:"#fff",iconText:"dangerous",messageColor:"#fff",color:"#ef4040",position:"topRight",timeout:2e3,theme:"dark",maxWidth:"432px"};w.show(t)}const d=new S,g=new x;let M=new b(".gallery-link",q);const P=document.querySelector("#search-form");document.querySelector("#search-btn");const c=document.querySelector("#search-input");let v;I();
+      `).join("");this.gallery.insertAdjacentHTML("beforeend",r)};var o,d;class I{constructor(){u(this,o);u(this,d);m(this,o,{params:{_method:"get",key:"49061032-8122651df51dcd062279bc436",q:"",orientation:"horizontal",page:1,safesearch:!0,image_type:"photo",per_page:40}}),m(this,d,"https://pixabay.com/api/")}async sendQuery(e){return l(this,o).params.q=e,await S(l(this,d),l(this,o))}clearSearchQuery(){l(this,o).params.q="",l(this,o).params.page=1}}o=new WeakMap,d=new WeakMap;const $={captionDelay:250,captionsData:"alt"};function k(){G.addEventListener("submit",t=>A(t))}async function A(t){if(t.preventDefault(),M()){c.loader();const e=setTimeout(async()=>{try{const r=await L.sendQuery(w);O(r)}catch(r){y(r)}clearInterval(e)},2e3)}else y("Sorry, input not valid"),R()}async function E(t){console.log("click")}function M(){return h.value&&h.value.length<=100?(w=h.value,!0):!1}function O(t){t.data.hits.length>0?(c.showFirstPage(t),c.createBtn(E),P()):(y(`Sorry, there are no images matching your search query. Please try again!
+  `),c.clearGalery())}function P(){T.refresh()}function R(){c.clearGalery(),h.value="",L.clearSearchQuery()}function y(t){t=t.message?t.message:t;let e={message:t,icon:"material-icons-outlined",iconColor:"#fff",iconText:"dangerous",messageColor:"#fff",color:"#ef4040",position:"topRight",timeout:2e3,theme:"dark",maxWidth:"432px"};q.show(e)}const c=new B,L=new I;let T=new x(".gallery-link",$);const G=document.querySelector("#search-form");document.querySelector("#search-btn");const h=document.querySelector("#search-input");let w;k();
 //# sourceMappingURL=index.js.map
