@@ -89,6 +89,12 @@ body {
 .search-btn:hover {
   background: #6c8cff;
 }
+
+.disabled-btn,
+.disabled-btn:hover {
+  background-color: #808080;
+}
+
 .gallery {
   margin: auto;
   display: flex;

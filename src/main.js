@@ -18,12 +18,13 @@ function getOn() {
 async function search(event) {
   event.preventDefault();
   if (isValidInput()) {
+    refresh();
     gallery.loader();
     const id = setTimeout(async () => {
       try {
         const response = await pixABay.sendQuery(searchInput);
-        // if (!response.data) return;
-        render(response);
+        renderFirstPage(response);
+        pixABay.nextPage();
       } catch (error) {
         errorShow(error);
       }
@@ -35,11 +36,32 @@ async function search(event) {
   }
 }
 async function loadMore(event) {
-  console.log(`click`);
+  gallery.loader();
+  const id = setTimeout(async () => {
+    try {
+      const response = await pixABay.sendQuery();
+      pixABay.nextPage();
+      renderNexPage(response);
+    } catch (error) {
+      errorShow(error);
+    }
+    clearInterval(id);
+  }, 2000);
 }
+
 async function loadLast(event) {
-  console.log(`last`);
+  gallery.loader();
+  const id = setTimeout(async () => {
+    try {
+      const response = await pixABay.goToLastPage();
+      renderNexPage(response);
+    } catch (error) {
+      errorShow(error);
+    }
+    clearInterval(id);
+  }, 2000);
 }
+
 function isValidInput() {
   if (input.value && input.value.length <= 100) {
     searchInput = input.value;
@@ -47,26 +69,51 @@ function isValidInput() {
   } else return false;
 }
 
-function render(feedback) {
-  if (feedback.data.hits.length > 0) {
-    gallery.showFirstPage(feedback);
-    gallery.createBtn(loadMore);
+function renderNexPage(response) {
+  gallery.removeLoader();
+  gallery.showNextPage(response);
+  galleryLight.refresh();
+  scroll();
+  if (pixABay.lastPage(response)) {
+    gallery.disableBtn(loadMore, loadLast);
+    iziToast.warning({
+      message: `We're sorry, but you've reached the end of search results.
+`,
+      position: `topRight`,
+    });
+  }
+}
 
-    buildLightshow();
+function renderFirstPage(response) {
+  gallery.removeLoader();
+  if (response.data.hits.length > 0) {
+    gallery.clearGalery();
+    gallery.showFirstPage(response);
+    gallery.createBtn(loadMore, loadLast);
+    galleryLight.refresh();
+
+    if (pixABay.lastPage(response)) {
+      gallery.disableBtn(loadMore, loadLast);
+      iziToast.warning({
+        message: `We're sorry, but you've reached the end of search results.
+`,
+        position: `topRight`,
+      });
+    }
   } else {
     errorShow(`Sorry, there are no images matching your search query. Please try again!
   `);
     gallery.clearGalery();
   }
 }
-
-function buildLightshow() {
-  // let galleryLight = new SimpleLightbox('.gallery-link', optionsSimpleLightBox);
-  // galleryLight.on('show.simplelightbox', function () {});
-  // galleryLight.on('error.simplelightbox', function (e) {
-  //   console.log(e);
-  // });
-  galleryLight.refresh();
+function scroll() {
+  const item = document.querySelector(`.gallery-item`);
+  let itemParams = item.getBoundingClientRect();
+  window.scrollBy({
+    top: itemParams.height * 2,
+    left: 0,
+    behavior: 'smooth',
+  });
 }
 
 function refresh() {

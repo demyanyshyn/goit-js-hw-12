@@ -5,14 +5,16 @@ export default class RenderGallery {
   changeResolution(img) {
     return img.slice(0, -7) + `180.jpg`;
   }
-  showFirstPage(feedback) {
-    this.clearGalery();
-    this.#renderItems(feedback);
+  showFirstPage(response) {
+    this.#renderItems(response);
   }
-  #renderItems(feedback) {
-    const markup = feedback.data.hits
+  showNextPage(response) {
+    this.#renderItems(response);
+  }
+  #renderItems(response) {
+    const markup = response.data.hits
       .map(image => {
-        return `<li>
+        return `<li class="gallery-item">
         <div clas="img-box">
           <a class="gallery-link" href="${image.largeImageURL}">
             <img
@@ -45,6 +47,7 @@ export default class RenderGallery {
       `;
       })
       .join('');
+
     this.gallery.insertAdjacentHTML('beforeend', markup);
   }
 
@@ -53,19 +56,18 @@ export default class RenderGallery {
     this.removeBtn();
   }
 
-  createBtn(callback, calback2) {
+  createBtn(callback, callback2) {
     const div = document.createElement(`div`);
     div.classList.add(`pages-btn-wrapper`);
     div.innerHTML = `
       <buton class="search-btn" id="next-page" type="button">Load more</buton>
-      <! Add only for demo work on last page-->
       <buton class="search-btn" id="last-page" type="button">Load last page</buton>`;
     const nextBtn = div.querySelector(`#next-page`);
     const lastBtn = div.querySelector(`#last-page`);
-    nextBtn.addEventListener(`click`, event => callback(event));
-    lastBtn.addEventListener(`click`, event => callback2(event));
+    nextBtn.addEventListener(`click`, callback);
+    lastBtn.addEventListener(`click`, callback2);
 
-    this.gallery.insertAdjacentElement(`afterend`, nextBtn);
+    this.gallery.insertAdjacentElement(`afterend`, div);
   }
   removeBtn() {
     const btn = document.querySelectorAll(`.pages-btn-wrapper`);
@@ -73,8 +75,22 @@ export default class RenderGallery {
   }
 
   loader() {
-    const loader = `<div class="content-header">Loading images, please wait... <br/><span class="loader"></span></div>`;
-    this.clearGalery();
-    this.gallery.insertAdjacentHTML('beforeend', loader);
+    const loader = `<div class="content-header" id="loader">Loading images, please wait... <br/><span class="loader"></span></div>`;
+    this.gallery.insertAdjacentHTML('afterend', loader);
+  }
+  removeLoader() {
+    const loader = document.querySelector(`#loader`);
+    loader.remove();
+  }
+  disableBtn(callback, callback2) {
+    const nextBtn = document.querySelector(`#next-page`);
+    const lastBtn = document.querySelector(`#last-page`);
+    nextBtn.removeEventListener(`click`, callback);
+    lastBtn.removeEventListener(`click`, callback2);
+    nextBtn.classList.toggle(`disabled-btn`);
+    lastBtn.classList.toggle(`disabled-btn`);
+
+    // const div = document.querySelector(`.pages-btn-wrapper`);
+    // div.remove();
   }
 }

@@ -19,16 +19,30 @@ export default class ImageQuery {
       },
     };
     this.#url = `https://pixabay.com/api/`;
+    this.lastP = 0;
   }
-  async sendQuery(searchInput) {
-    this.#options.params.q = searchInput;
+  async sendQuery(searchInput, page) {
+    searchInput ? (this.#options.params.q = searchInput) : ``;
     const response = await axios(this.#url, this.#options);
+
     return response;
-    // .then(items => thanCall(items))
-    // .catch(error => cathCall(error));
+  }
+  async goToLastPage() {
+    this.#options.params.page = this.lastP;
+    const response = await this.sendQuery();
+    return response;
   }
   clearSearchQuery() {
     this.#options.params.q = ``;
     this.#options.params.page = 1;
+  }
+  nextPage() {
+    this.#options.params.page++;
+  }
+  lastPage(response) {
+    this.lastP = Math.ceil(
+      response.data.totalHits / this.#options.params.per_page
+    );
+    return this.lastP <= this.#options.params.page;
   }
 }
