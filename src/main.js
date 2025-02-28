@@ -13,7 +13,7 @@ const optionsSimpleLightBox = {
 };
 
 function getOn() {
-  form.addEventListener(`submit`, event => search(event));
+  form.addEventListener(`submit`, search);
 }
 async function search(event) {
   event.preventDefault();
@@ -63,7 +63,7 @@ async function loadLast(event) {
 }
 
 function isValidInput() {
-  if (input.value && input.value.length <= 100) {
+  if (input.value.trim() && input.value.length <= 100) {
     searchInput = input.value;
     return true;
   } else return false;

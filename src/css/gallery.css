@@ -107,6 +107,7 @@ body {
 .img-box {
   display: flex;
   border: 1px solid #808080;
+  transition: transform 400ms ease-in;
 }
 
 .gallery-link {
@@ -116,6 +117,9 @@ body {
   width: 360px;
   height: 200px;
   object-fit: cover;
+}
+.gallery-image:hover {
+  transform: scale(110%);
 }
 .content-box {
   width: 360px;
@@ -127,7 +131,9 @@ body {
   justify-content: space-evenly;
   opacity: 0.7;
 }
-
+.gallery-image:hover .content-box {
+  transform: scale(110%);
+}
 .content-header {
   display: flex;
   flex-direction: column;
