@@ -89,7 +89,9 @@ function renderFirstPage(response) {
   if (response.data.hits.length > 0) {
     gallery.clearGalery();
     gallery.showFirstPage(response);
+
     gallery.createBtn(loadMore, loadLast);
+
     galleryLight.refresh();
 
     if (pixABay.lastPage(response)) {
